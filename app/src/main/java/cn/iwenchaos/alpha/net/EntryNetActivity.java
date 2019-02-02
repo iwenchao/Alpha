@@ -12,12 +12,15 @@ import com.orhanobut.logger.Logger;
 import java.io.IOException;
 
 import cn.iwenchaos.alpha.R;
+import cn.iwenchaos.alpha.net.retrofit.Api;
 import cn.iwenchaos.alpha.router.ARouterPath;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
+import retrofit2.Retrofit;
 
 /**
  * Created by chaos
@@ -38,12 +41,40 @@ public class EntryNetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 //                getAsyncHttpContent();
-                getHttpContent();
+//                getHttpContent();
+                useRetrofitApi();
             }
         });
 
     }
 
+
+    /**
+     * 使用retrofit2
+     */
+
+    private void useRetrofitApi(){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://www.wanandroid.com/")
+                .build();
+        Api api = retrofit.create(Api.class);
+        retrofit2.Call<ResponseBody> call = api.getWanandroidChapters();
+        call.enqueue(new retrofit2.Callback<ResponseBody>() {
+            @Override
+            public void onResponse(retrofit2.Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+                try {
+                    Logger.d(response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(retrofit2.Call<ResponseBody> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+    }
 
     /**
      * 异步请求,该请求是在主线程
@@ -144,4 +175,5 @@ public class EntryNetActivity extends AppCompatActivity {
 //                dismissProgressDialog();
 //            }
     }
+
 }

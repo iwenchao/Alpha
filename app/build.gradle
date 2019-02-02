@@ -41,6 +41,8 @@ dependencies {
     compile 'com.squareup.okio:okio:1.15.0'
     //封装的okhttp
     compile 'cn.finalteam:okhttpfinal:2.0.7'
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:2.5.0"
 
     //app内部路由
     compile 'com.alibaba:arouter-api:1.4.1'

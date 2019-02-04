@@ -21,6 +21,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by chaos
@@ -49,6 +51,17 @@ public class EntryNetActivity extends AppCompatActivity {
     }
 
 
+    private void useGlide(){
+
+    }
+
+
+    private void useRxjava2(){
+
+    }
+
+
+
     /**
      * 使用retrofit2
      */
@@ -56,9 +69,11 @@ public class EntryNetActivity extends AppCompatActivity {
     private void useRetrofitApi(){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://www.wanandroid.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         Api api = retrofit.create(Api.class);
-        retrofit2.Call<ResponseBody> call = api.getWanandroidChapters();
+        retrofit2.Call<ResponseBody> call = api.getWanandroidChapters("");
         call.enqueue(new retrofit2.Callback<ResponseBody>() {
             @Override
             public void onResponse(retrofit2.Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {

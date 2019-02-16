@@ -25,8 +25,16 @@ public class AlWebViewClient extends WebViewClient {
     }
 
 
-
+    /**
+     * JS通过WebView调用 Android 代码:拦截 url
+     * @param view
+     * @param request
+     * @return
+     */
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+        //拦截 url
+
+
         return super.shouldOverrideUrlLoading(view, request);
     }
 

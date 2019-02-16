@@ -13,7 +13,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.iwenchaos.alpha.R;
+import cn.iwenchaos.alpha.hybrid.plugin.LocationJsPlugin;
 import cn.iwenchaos.alpha.hybrid.web.WrapperWebView;
+import cn.iwenchaos.alpha.hybrid.web.constant.Constant;
+import cn.iwenchaos.alpha.hybrid.web.jsbridge.JsBridge;
 
 /**
  * Created by chaos
@@ -24,6 +27,7 @@ public class WebFragment extends Fragment {
 
     View mContainerView;
     WrapperWebView mWrapperWebView;
+    JsBridge mJsBridge;
 
     @BindView(R.id.webview_container)
     FrameLayout mWebviewContainer;
@@ -55,6 +59,7 @@ public class WebFragment extends Fragment {
         }
         mUnbinder = ButterKnife.bind(this, mContainerView);
         initWebView();
+        initJsBridge();
 
         return mContainerView;
 
@@ -63,16 +68,12 @@ public class WebFragment extends Fragment {
     private void initWebView() {
         mWrapperWebView = new WrapperWebView(getActivity());
         mWebviewContainer.addView(mWrapperWebView);
-
     }
 
-
-
-
-
-
-
-
+    private void initJsBridge() {
+        mJsBridge = new JsBridge(mWrapperWebView);
+        mJsBridge.register(Constant.Plugin.LOCATION_PLUGIN, new LocationJsPlugin());
+    }
 
 
     @Override

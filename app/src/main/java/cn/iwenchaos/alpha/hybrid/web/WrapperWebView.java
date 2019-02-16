@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.CookieManager;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
@@ -85,7 +86,9 @@ public class WrapperWebView extends FrameLayout {
     @SuppressLint("SetJavaScriptEnabled")
     private void initWebViewSettings() {
         WebSettings settings = mWebView.getSettings();
+        // // 设置文字解码格式
         settings.setDefaultTextEncodingName("utf-8");
+        // 设置与Js交互的权限
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);//开启DOM树缓存
         settings.setRenderPriority(WebSettings.RenderPriority.HIGH);
@@ -96,6 +99,7 @@ public class WrapperWebView extends FrameLayout {
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
         settings.setSaveFormData(true);
+        // 设置允许JS弹窗
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setLoadsImagesAutomatically(true);
         settings.setLoadWithOverviewMode(true);
@@ -130,16 +134,38 @@ public class WrapperWebView extends FrameLayout {
         }
     }
 
-    //页面内注入js代码
+    //在Android里通过WebView设置调用JS代码,两种方式
     public void injectJavascript(String js) {
         if (mWebView != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                mWebView.evaluateJavascript(js, value -> {
-                });
-            } else {
-                mWebView.loadUrl("javascript:" + js);
-            }
+            mWebView.post(new Runnable() {
+                @Override
+                public void run() {
+                    //因为该方法的执行不会使页面刷新，而方法（loadUrl ）的执行则会。Android 4.4 后才可使用
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                        mWebView.evaluateJavascript(js, value -> {
+                            ////此处为 js 返回的结果
+                        });
+                    } else {
+                        mWebView.loadUrl("javascript:" + js);
+                    }
+                }
+            });
         }
     }
+
+    /**
+     * 进行对象映射
+     * @param o
+     * @param s
+     */
+    @SuppressLint("AddJavascriptInterface")
+    public void addJavascriptInterface(Object o, String s){
+        if(mWebView != null){
+            mWebView.addJavascriptInterface(o,s);
+        }
+    }
+
+
+
 
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="cn.iwenchaos.alpha">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -27,6 +28,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".net.EntryNetActivity" />
+        <activity android:name=".persistence.SQLiteAlpha" />
+        <activity android:name=".persistence.SharePreferenceAlpha" />
     </application>
 
 </manifest>

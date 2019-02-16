@@ -13,6 +13,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import cn.iwenchaos.alpha.R;
+import cn.iwenchaos.alpha.hybrid.web.WrapperWebView;
 
 /**
  * Created by chaos
@@ -22,6 +23,7 @@ import cn.iwenchaos.alpha.R;
 public class WebFragment extends Fragment {
 
     View mContainerView;
+    WrapperWebView mWrapperWebView;
 
     @BindView(R.id.webview_container)
     FrameLayout mWebviewContainer;
@@ -52,11 +54,26 @@ public class WebFragment extends Fragment {
             mContainerView = inflater.inflate(R.layout.fragment_web, container, false);
         }
         mUnbinder = ButterKnife.bind(this, mContainerView);
-
+        initWebView();
 
         return mContainerView;
 
     }
+
+    private void initWebView() {
+        mWrapperWebView = new WrapperWebView(getActivity());
+        mWebviewContainer.addView(mWrapperWebView);
+
+    }
+
+
+
+
+
+
+
+
+
 
     @Override
     public void onDestroyView() {

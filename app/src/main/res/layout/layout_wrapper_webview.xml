@@ -86,7 +86,6 @@
             android:layout_height="2dp"
             android:max="100"
             android:progress="0"
-            android:progressDrawable="@drawable/lib_hybrid_progress_bar_states"
             android:visibility="gone" />
 
     </FrameLayout>

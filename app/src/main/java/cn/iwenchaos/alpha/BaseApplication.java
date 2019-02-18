@@ -3,6 +3,7 @@ package cn.iwenchaos.alpha;
 import android.app.Application;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.CsvFormatStrategy;
 import com.orhanobut.logger.DiskLogAdapter;
@@ -24,9 +25,14 @@ public class BaseApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        initFresco();
         initLog();
         initRouter();
         initFinalOkHttp();
+    }
+
+    private void initFresco(){
+        Fresco.initialize(this);
     }
 
     private void initFinalOkHttp(){

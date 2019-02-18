@@ -2,7 +2,8 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/tools">
 
     <Button
         android:id="@+id/btn"
@@ -18,4 +19,10 @@
         app:layout_constraintLeft_toRightOf="@+id/btn"
         />
 
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/my_image_view"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        fresco:placeholderImage="@mipmap/lib_hybrid_close"
+        />
 </android.support.constraint.ConstraintLayout>

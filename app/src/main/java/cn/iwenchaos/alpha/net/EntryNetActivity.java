@@ -2,6 +2,7 @@ package cn.iwenchaos.alpha.net;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -65,6 +67,8 @@ public class EntryNetActivity extends AppCompatActivity {
     Button mBtn;
     @BindView(R.id.img)
     ImageView mImg;
+    @BindView(R.id.my_image_view)
+    SimpleDraweeView mMyImageView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,15 +85,20 @@ public class EntryNetActivity extends AppCompatActivity {
 //                useRetrofitApi();
 
 //                useRxjava2();
-                btnClick(view);
-                EventBus.getDefault().post(new MessageEvent());
+//                btnClick(view);
+//                EventBus.getDefault().post(new MessageEvent());
             }
         });
 
     }
 
+    private void loadImage(){
+        Uri uri = Uri.parse("https://raw.githubusercontent.com/facebook/fresco/gh-pages/static/logo.png");
+        mMyImageView.setImageURI(uri);
+    }
 
-    public void btnClick(View view){
+
+    public void btnClick(View view) {
         System.out.println("Hello, I am CSDN_LQR");
     }
 
@@ -108,7 +117,7 @@ public class EntryNetActivity extends AppCompatActivity {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(MessageEvent event){
+    public void onMessageEvent(MessageEvent event) {
 
     }
 

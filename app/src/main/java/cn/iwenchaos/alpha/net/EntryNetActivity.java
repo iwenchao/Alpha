@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -70,6 +72,23 @@ public class EntryNetActivity extends AppCompatActivity {
     @BindView(R.id.my_image_view)
     SimpleDraweeView mMyImageView;
 
+    //成员变量方式
+    private transient Handler mHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(Message msg) {
+            //
+
+            return false;
+        }
+    });
+    //内部类方式
+    private Handler mHandler2 = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+        }
+    };
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,7 +111,23 @@ public class EntryNetActivity extends AppCompatActivity {
 
     }
 
+    private void useHandler(){
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
+
+        Message message = Message.obtain();
+        message.what = 0;
+        message.arg1 = 1;
+        message.obj = new Object();
+        mHandler.sendMessage(message);
+    }
+
     private void loadImage(){
+        //epoll
         Uri uri = Uri.parse("https://raw.githubusercontent.com/facebook/fresco/gh-pages/static/logo.png");
         mMyImageView.setImageURI(uri);
     }
@@ -115,6 +150,13 @@ public class EntryNetActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mHandler!=null){
+            mHandler.removeCallbacksAndMessages(null);
+        }
+    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MessageEvent event) {

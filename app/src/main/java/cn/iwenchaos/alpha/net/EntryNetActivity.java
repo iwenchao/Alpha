@@ -105,7 +105,7 @@ public class EntryNetActivity extends AppCompatActivity {
 
 //                useRxjava2();
 //                btnClick(view);
-//                EventBus.getDefault().post(new MessageEvent());
+                EventBus.getDefault().post(new MessageEvent());
             }
         });
 
@@ -365,6 +365,7 @@ public class EntryNetActivity extends AppCompatActivity {
      */
     private void getAsyncHttpContent() {
         OkHttpClient okHttpClient = new OkHttpClient();
+//        RequestBody requestBody =new  RequestBody()
         Request request = new Request.Builder()
                 .url("http://wanandroid.com/wxarticle/chapters/json")
                 .build();

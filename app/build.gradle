@@ -48,38 +48,30 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.5.0'
-
     //app内部路由
     implementation 'com.alibaba:arouter-api:1.4.1'
     annotationProcessor 'com.alibaba:arouter-compiler:1.2.2'
     //logger
     implementation 'com.orhanobut:logger:2.2.0'
-
     //图片 glide
-    implementation('com.github.bumptech.glide:glide:4.8.0')
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     //添加 OkHttp 集成库的 Gradle 依赖将使 Glide 自动开始使用 OkHttp 来加载所有来自 http 和 https URL 的图片。
-    implementation "com.github.bumptech.glide:okhttp3-integration:4.8.0"
+    implementation 'com.github.bumptech.glide:okhttp3-integration:4.8.0'
     //如果使用了在Kotlin中使用了Glide注解，需要引入kapt依赖代替annotationProcessor依赖
     //kapt 'com.github.bumptech.glide:compiler:4.8.0'
     //fresco
     implementation 'com.facebook.fresco:fresco:1.12.1'
-
-
     //注解view
     implementation 'com.jakewharton:butterknife:9.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0'
-
     //Rxjava2
     compile 'io.reactivex.rxjava2:rxjava:2.2.2'
     compile 'io.reactivex.rxjava2:rxandroid:2.1.0'
-
-
     implementation 'org.greenrobot:eventbus:3.1.1'
     //面向切面
     implementation 'org.aspectj:aspectjrt:1.8.9'
-
-
+    implementation project(':libPlugin')
 }
 
 import org.aspectj.bridge.IMessage

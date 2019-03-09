@@ -104,7 +104,7 @@ public class EntryNetActivity extends AppCompatActivity {
 //                useRetrofitApi();
 
 //                useRxjava2();
-//                btnClick(view);
+                btnClick(view);
                 EventBus.getDefault().post(new MessageEvent());
             }
         });
@@ -343,6 +343,7 @@ public class EntryNetActivity extends AppCompatActivity {
                 .build();
         Api api = retrofit.create(Api.class);
         retrofit2.Call<ResponseBody> call = api.getWanandroidChapters("");
+        //异步请求
         call.enqueue(new retrofit2.Callback<ResponseBody>() {
             @Override
             public void onResponse(retrofit2.Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
@@ -358,6 +359,13 @@ public class EntryNetActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
+
+        //同步请求
+        try {
+          retrofit2.Response<ResponseBody> response =  call.execute();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -378,7 +386,7 @@ public class EntryNetActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
+                response.request().body();
             }
 
 //            @Override

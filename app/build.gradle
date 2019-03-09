@@ -74,6 +74,7 @@ dependencies {
     implementation project(':libPlugin')
 }
 
+//切面aop gradle配置
 import org.aspectj.bridge.IMessage
 import org.aspectj.bridge.MessageHandler
 import org.aspectj.tools.ajc.Main
@@ -119,3 +120,55 @@ variants.all { variant ->
         }
     }
 }
+
+
+public class BuildTimeListener implements TaskExecutionListener, BuildListener {
+    private Clock clock
+    private times = []
+
+    @Override
+    void beforeExecute(Task task) {
+        clock = new org.gradle.util.Clock(System.currentTimeMillis())
+    }
+
+    @Override
+    void afterExecute(Task task, TaskState taskState) {
+        def ms = clock.startTime;
+        times.add([ms, task.path])
+
+        //task.project.logger.warn "${task.path} spend ${ms}ms"
+    }
+
+    @Override
+    void buildStarted(Gradle gradle) {
+
+    }
+
+    @Override
+    void settingsEvaluated(Settings settings) {
+
+    }
+
+    @Override
+    void projectsLoaded(Gradle gradle) {
+
+    }
+
+    @Override
+    void projectsEvaluated(Gradle gradle) {
+
+    }
+
+    @Override
+    void buildFinished(BuildResult result) {
+        println "Task spend time:"
+        for (time in times) {
+            if (time[0] >= 50) {
+                printf "%7sms  %s\n", time
+            }
+        }
+    }
+
+}
+
+project.gradle.addListener(new BuildTimeListener())

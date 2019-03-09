@@ -18,7 +18,7 @@ import dalvik.system.DexClassLoader;
  */
 public final class PluginManager {
 
-    private static PluginManager sPluginManager = new PluginManager();
+    private static final PluginManager sPluginManager = new PluginManager();
     private Context mContext;
 
     private DexClassLoader mPluginDexClassLoader;
@@ -27,7 +27,7 @@ public final class PluginManager {
     private PackageInfo mPluginPackageInfo;
 
 
-    public PluginManager() {
+    private PluginManager() {
     }
 
     public static PluginManager get() {

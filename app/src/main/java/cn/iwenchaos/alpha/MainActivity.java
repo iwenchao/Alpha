@@ -2,6 +2,7 @@ package cn.iwenchaos.alpha;
 
 import android.Manifest;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -11,22 +12,26 @@ import android.view.View;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 
+import cn.iwenchaos.alpha.databinding.ActivityMainBinding;
 import cn.iwenchaos.alpha.plugin.ProxyActivity;
 import cn.iwenchaos.alpha.router.ARouterPath;
 import cn.iwenchaos.libplugin.PluginManager;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ActivityMainBinding dataBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+         dataBinding =
+                 DataBindingUtil.setContentView(this, R.layout.activity_main);
 
 
         findViewById(R.id.entry).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ARouter.getInstance().build(ARouterPath.NET_ENTRY_ACTIVITY).navigation();
+                ARouter.getInstance().build(ARouterPath.GirlsListAty).navigation();
             }
         });
     }

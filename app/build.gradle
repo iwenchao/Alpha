@@ -19,6 +19,11 @@ android {
             }
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -39,6 +44,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    //databinding
+    implementation "com.android.support:recyclerview-v7:26.1.0"
+    implementation "android.arch.lifecycle:extensions:1.1.0"
+    implementation "android.arch.lifecycle:viewmodel:1.1.0"
+
     //网络
     implementation 'com.squareup.okhttp3:okhttp:3.12.1'
     implementation 'com.squareup.okio:okio:1.15.0'
@@ -121,54 +132,54 @@ variants.all { variant ->
     }
 }
 
-
-public class BuildTimeListener implements TaskExecutionListener, BuildListener {
-    private Clock clock
-    private times = []
-
-    @Override
-    void beforeExecute(Task task) {
-        clock = new org.gradle.util.Clock(System.currentTimeMillis())
-    }
-
-    @Override
-    void afterExecute(Task task, TaskState taskState) {
-        def ms = clock.startTime;
-        times.add([ms, task.path])
-
-        //task.project.logger.warn "${task.path} spend ${ms}ms"
-    }
-
-    @Override
-    void buildStarted(Gradle gradle) {
-
-    }
-
-    @Override
-    void settingsEvaluated(Settings settings) {
-
-    }
-
-    @Override
-    void projectsLoaded(Gradle gradle) {
-
-    }
-
-    @Override
-    void projectsEvaluated(Gradle gradle) {
-
-    }
-
-    @Override
-    void buildFinished(BuildResult result) {
-        println "Task spend time:"
-        for (time in times) {
-            if (time[0] >= 50) {
-                printf "%7sms  %s\n", time
-            }
-        }
-    }
-
-}
-
-project.gradle.addListener(new BuildTimeListener())
+//
+//public class BuildTimeListener implements TaskExecutionListener, BuildListener {
+//    private Clock clock
+//    private times = []
+//
+//    @Override
+//    void beforeExecute(Task task) {
+//        clock = new org.gradle.util.Clock(System.currentTimeMillis())
+//    }
+//
+//    @Override
+//    void afterExecute(Task task, TaskState taskState) {
+//        def ms = clock.startTime;
+//        times.add([ms, task.path])
+//
+//        //task.project.logger.warn "${task.path} spend ${ms}ms"
+//    }
+//
+//    @Override
+//    void buildStarted(Gradle gradle) {
+//
+//    }
+//
+//    @Override
+//    void settingsEvaluated(Settings settings) {
+//
+//    }
+//
+//    @Override
+//    void projectsLoaded(Gradle gradle) {
+//
+//    }
+//
+//    @Override
+//    void projectsEvaluated(Gradle gradle) {
+//
+//    }
+//
+//    @Override
+//    void buildFinished(BuildResult result) {
+//        println "Task spend time:"
+//        for (time in times) {
+//            if (time[0] >= 50) {
+//                printf "%7sms  %s\n", time
+//            }
+//        }
+//    }
+//
+//}
+//
+//project.gradle.addListener(new BuildTimeListener())

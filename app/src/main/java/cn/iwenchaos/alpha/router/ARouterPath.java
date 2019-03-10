@@ -9,4 +9,6 @@ public final class ARouterPath {
 
     public static final String NET_ENTRY_ACTIVITY = "/net/EntryNetActivity";
 
+    /**妹子列表Activity*/
+    public static final String GirlsListAty = "/girls/aty/list";
 }
